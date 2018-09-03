@@ -1,0 +1,93 @@
+<template>
+  <div>
+    <input @change="read_csv" type="file" value="读取csv文件">
+    <!--<button @click="read_csv2">测试</button>-->
+    <div v-for="sentence in sentence_list">
+      <div class="word_block" id="label">
+        <p>{{sentence.intent}}/{{sentence.predict}}</p>
+      </div>
+      <div class='word_block' v-for="(item,index) in sentence.word" v-bind:key="item.index">
+        <div class='word_block' :style="{background:sentence.weight[index]}">
+          <p>{{sentence.word[index]}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+
+export default {
+  data () {
+    return {
+      sentence_list: [
+        {
+          intent: 'chat',
+          predict: 'chat',
+          word: ['我', '要', '上网'],
+          weight: ['rgba(155,241,241)', 'rgba(241,241,241)', 'rgba(241,241,241)']
+        },
+        {
+          intent: 'chat',
+          predict: 'chat',
+          word: ['我', '要', '上网'],
+          weight: ['rgba(241,241,241)', 'rgba(241,241,241)', 'rgba(241,241,241)']
+        }
+      ],
+      raw_data: ''
+    }
+  },
+  methods: {
+    read_csv (e) {
+      const that = this
+      const file = e.target.files[0]
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        that.raw_data = e.target.result.split('\n')
+        let sentenceList = []
+        for (let i = 0; i < that.raw_data.length - 1; i = i + 2) {
+          let o = {}
+          let word = that.raw_data[i].split(',')
+          let value = that.raw_data[i + 1].split(',')
+          o.intent = word[0]
+          o.predict = value[0]
+          o.word = []
+          o.weight = []
+          for (let j = 1; j < word.length; j++) {
+            o.word.push(word[j])
+            o.weight.push('rgba(' + (1 - value[j]) * 255 + ',' + (1 - value[j]) * 255 + ',' +
+              (1 - value[j]) * 255 + ')')
+          }
+
+          sentenceList.push(o)
+        }
+        that.sentence_list = sentenceList
+      }
+      reader.readAsText(file)
+    }
+  },
+  mounted () {
+
+  }
+}
+
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+  .word_block {
+    width: auto;
+    padding: 3px;
+    height: 50px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .word_block p {
+    color: red;
+  }
+
+  #label{
+    width: 100px;
+  }
+</style>
