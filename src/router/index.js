@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
-import HeatMap from '@/components/HeatMap'
+import HeatMapLabel from '@/components/HeatMapLabel'
+import HeatMapSentence from '@/components/HeatMapSentence'
 
 Vue.use(Router)
 
@@ -13,9 +14,15 @@ export default new Router({
       component: HelloWorld
     },
     {
-      path: '/heatmap',
-      name: 'HeatMap',
-      component: HeatMap
-    }
+      path: '/heatmap2sentence',
+      name: 'HeatMapSentence',
+      component: HeatMapSentence
+    },
+    {
+      path: '/heatmap2label',
+      name: 'HeatMapLabel',
+      component: HeatMapLabel
+    },
+
   ]
 })

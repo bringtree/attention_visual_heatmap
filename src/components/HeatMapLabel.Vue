@@ -5,7 +5,7 @@
       <div class="word_block">
         <div id="label">{{sentence.intent}}/{{sentence.predict}}</div>
       </div>
-      <div class='word_block' v-for="(item,index) in sentence.word" v-bind:key="item.index">
+      <div class='word_block' v-for="(item,index) in sentence.word" :key="item.index">
         <div :style="{background:sentence.weight[index]}">
           {{sentence.word[index]}}
         </div>

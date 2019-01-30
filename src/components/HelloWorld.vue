@@ -1,9 +1,11 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
     <ul>
       <li>
-        <router-link to="/heatmap">heatmap</router-link>
+        <router-link to="/heatmap2label">heatmap——label2sentence</router-link>
+      </li>
+      <li>
+        <router-link to="/heatmap2sentence">heatmap-sentence2sentence</router-link>
       </li>
     </ul>
   </div>
@@ -14,7 +16,6 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
     }
   }
 }
